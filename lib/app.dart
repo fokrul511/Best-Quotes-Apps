@@ -1,4 +1,5 @@
 import 'package:best_quotes/presentation/screens/home_screen.dart';
+import 'package:best_quotes/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class Quotes extends StatelessWidget {
@@ -8,7 +9,7 @@ class Quotes extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: SplashScreen(),
     );
   }
 }

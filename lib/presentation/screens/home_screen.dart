@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:best_quotes/app.dart';
 import 'package:best_quotes/presentation/model/data.dart';
+import 'package:best_quotes/presentation/widgets/pop_up_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart';
-import 'package:shimmer/shimmer.dart';
 
 List<QuotesModel> quotesList = [];
 
@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [const PopUpButton()],
         centerTitle: true,
         title: const Text('Best Quotes'),
       ),
@@ -43,49 +44,69 @@ class _HomeScreenState extends State<HomeScreen> {
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        quotesList[index].id.toString(),
-                        style: const TextStyle(
-                          fontSize: 16,
+              child: InkWell(
+                splashColor: Colors.green,
+                onTap: () {
+                  Clipboard.setData(
+                    ClipboardData(
+                        text:
+                            '${quotesList[index].quoteTitle} -${quotesList[index].authorName}'),
+                  ).then(
+                    (value) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          duration: const Duration(milliseconds: 500),
+                          backgroundColor: Colors.green,
+                          content:
+                              Text('${quotesList[index].id} Copy Successfully'),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        quotesList[index].quoteTitle ?? "",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            "- ${quotesList[index].authorName ?? ""}",
-                            style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.blue,
-                              fontStyle: FontStyle.italic
-                            ),
+                      );
+                    },
+                  );
+                },
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          quotesList[index].id.toString(),
+                          style: const TextStyle(
+                            fontSize: 16,
                           ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                    ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          quotesList[index].quoteTitle ?? "",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "- ${quotesList[index].authorName ?? ""}",
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.blue,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
