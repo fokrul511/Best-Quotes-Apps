@@ -12,5 +12,6 @@ class QuotesModel {
   QuotesModel.formJson(Map<String, dynamic> jason) {
     authorName = jason['author'];
     quoteTitle = jason['quote'];
+    id = jason['id'];
   }
 }
