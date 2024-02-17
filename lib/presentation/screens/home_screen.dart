@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Visibility(
         visible: isLoadingScreen == false,
-        replacement: Center(
+        replacement: const Center(
           child: CircularProgressIndicator(),
         ),
         child: ListView.builder(
@@ -48,38 +48,41 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            quotesList[index].id.toString(),
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
+                      Text(
+                        quotesList[index].id.toString(),
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         quotesList[index].quoteTitle ?? "",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Text(
-                        quotesList[index].authorName ?? "",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.blue),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "- ${quotesList[index].authorName ?? ""}",
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.blue,
+                              fontStyle: FontStyle.italic
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                     ],
